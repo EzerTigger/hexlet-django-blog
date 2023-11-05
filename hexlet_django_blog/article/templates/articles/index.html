@@ -1,10 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
-<body>
-  Статья {{ article_id }}. Тег {{ tags }}
-</body>
-</html>
+{% extends "base.html" %}
+
+
+
+{% block content %}
+    {% for msg in messages %}
+        {{ msg }}
+    {% endfor %}
+    <h1>Список статей</h1>
+    {% for article in articles %}
+        <h2><a href="{% url 'show_article' id=article.id %}">{{ article.name }}</a></h2>
+        <h3><a href="{% url 'articles_update' id=article.id %}">Редактировать</a></h3>
+        <div>{{ article.body|slice:":200" }}</div>
+    {% endfor %}
+{% endblock %}
